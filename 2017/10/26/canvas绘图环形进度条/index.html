@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>canvas绘图环形进度条 | HXL的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="直接上代码 &amp;lt;!DOCTYPE html&amp;gt;   &amp;lt;html lang=&quot;en&quot;&amp;gt;   &amp;lt;head&amp;gt;       &amp;lt;meta charset=&quot;UTF-8&quot;&amp;gt;       &amp;lt;title&amp;gt;Canvas progress&amp;lt;/title&amp;gt;   &amp;lt;/head&amp;gt;   &amp;lt;body&amp;gt;       &amp;lt;canvas">
+<meta name="keywords" content="Canvas,环形进度条">
+<meta property="og:type" content="article">
+<meta property="og:title" content="canvas绘图环形进度条">
+<meta property="og:url" content="http://yoursite.com/2017/10/26/canvas绘图环形进度条/index.html">
+<meta property="og:site_name" content="HXL的博客">
+<meta property="og:description" content="直接上代码 &amp;lt;!DOCTYPE html&amp;gt;   &amp;lt;html lang=&quot;en&quot;&amp;gt;   &amp;lt;head&amp;gt;       &amp;lt;meta charset=&quot;UTF-8&quot;&amp;gt;       &amp;lt;title&amp;gt;Canvas progress&amp;lt;/title&amp;gt;   &amp;lt;/head&amp;gt;   &amp;lt;body&amp;gt;       &amp;lt;canvas">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/img/circle1.png">
+<meta property="og:image" content="http://yoursite.com/img/circle2.png">
+<meta property="og:updated_time" content="2017-10-26T08:13:48.087Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="canvas绘图环形进度条">
+<meta name="twitter:description" content="直接上代码 &amp;lt;!DOCTYPE html&amp;gt;   &amp;lt;html lang=&quot;en&quot;&amp;gt;   &amp;lt;head&amp;gt;       &amp;lt;meta charset=&quot;UTF-8&quot;&amp;gt;       &amp;lt;title&amp;gt;Canvas progress&amp;lt;/title&amp;gt;   &amp;lt;/head&amp;gt;   &amp;lt;body&amp;gt;       &amp;lt;canvas">
+<meta name="twitter:image" content="http://yoursite.com/img/circle1.png">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">HXL的博客</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/archives">文章</a>
+        
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-canvas绘图环形进度条" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/10/26/canvas绘图环形进度条/" class="article-date">
+  <time datetime="2017-10-26T08:03:27.000Z" itemprop="datePublished">2017-10-26</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/canvas/">canvas</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      canvas绘图环形进度条
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>直接上代码</p>
+<pre><code class="bash">&lt;!DOCTYPE html&gt;  
+&lt;html lang=<span class="string">"en"</span>&gt;  
+&lt;head&gt;  
+    &lt;meta charset=<span class="string">"UTF-8"</span>&gt;  
+    &lt;title&gt;Canvas progress&lt;/title&gt;  
+&lt;/head&gt;  
+&lt;body&gt;  
+    &lt;canvas id=<span class="string">"process"</span> width=<span class="string">"200"</span> height=<span class="string">"200"</span>&gt;&lt;/canvas&gt;  
+    &lt;script&gt;  
+        (<span class="function"><span class="title">function</span></span> (){  
+            var c = document.getElementById(<span class="string">'process'</span>),  
+                process = 0,  
+                ctx = c.getContext(<span class="string">'2d'</span>);  
+
+            // 画灰色的圆  
+            ctx.beginPath();  
+            ctx.arc(100, 100, 80, 0, Math.PI*2);  
+            ctx.closePath();  
+            ctx.fillStyle = <span class="string">'#F6F6F6'</span>;  
+            ctx.fill();  
+
+            <span class="keyword">function</span> <span class="function"><span class="title">animate</span></span>(){  
+                requestAnimationFrame(<span class="function"><span class="title">function</span></span> (){  
+                    process = process + 1;  
+                    drawCricle(ctx, process);  
+                    <span class="keyword">if</span> (process &lt; 100) {  
+                        animate();  
+                    }  
+                });  
+            }  
+
+            <span class="keyword">function</span> drawCricle(ctx, percent){  
+                // 画进度环  
+                ctx.beginPath();  
+                ctx.moveTo(100, 100);    
+                ctx.arc(100, 100, 80, Math.PI * 1.5, Math.PI * (1.5 + 2 * percent / 100 ));  
+                ctx.closePath();  
+                ctx.fillStyle = <span class="string">'#FF9600'</span>;  
+                ctx.fill();  
+
+                // 画内填充圆  
+                ctx.beginPath();  
+                ctx.arc(100, 100, 75, 0, Math.PI * 2);  
+                ctx.closePath();  
+                ctx.fillStyle = <span class="string">'#fff'</span>;  
+                ctx.fill();  
+
+                // 填充文字  
+                ctx.font = <span class="string">"bold 20pt Microsoft YaHei"</span>;   
+                ctx.fillStyle = <span class="string">'#333'</span>;  
+                ctx.textAlign = <span class="string">'center'</span>;    
+                ctx.textBaseline = <span class="string">'middle'</span>;    
+                ctx.moveTo(100, 100);    
+                ctx.fillText(process + <span class="string">'%'</span>, 100, 100);  
+            }  
+
+            animate();  
+        }());  
+    &lt;/script&gt;  
+&lt;/body&gt;  
+&lt;/html&gt;
+</code></pre>
+<p>效果图:<br><img src="/img/circle1.png" alt="效果图"><br><img src="/img/circle2.png" alt="效果图"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/10/26/canvas绘图环形进度条/" data-id="cj9870odm0000rcqmhqneocvj" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Canvas/">Canvas</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/环形进度条/">环形进度条</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2017/10/25/hexo-cli建站手册/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">hexo-cli建站手册</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/canvas/">canvas</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Canvas/">Canvas</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GitHub部署/">GitHub部署</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/环形进度条/">环形进度条</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Canvas/" style="font-size: 10px;">Canvas</a> <a href="/tags/GitHub部署/" style="font-size: 10px;">GitHub部署</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/环形进度条/" style="font-size: 10px;">环形进度条</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">十月 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/10/26/canvas绘图环形进度条/">canvas绘图环形进度条</a>
+          </li>
+        
+          <li>
+            <a href="/2017/10/25/hexo-cli建站手册/">hexo-cli建站手册</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 hxl<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">文章</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
